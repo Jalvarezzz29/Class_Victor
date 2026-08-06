@@ -57,14 +57,14 @@ print("\n")
 print("======================================== ARCHIVOS CSV ===========================================")
 print("\n")
 
-archivos_csv = glob.glob("*.csv")
+archivos_csv = glob.glob("TrabajosJxxx/Trabajos/Victor/*.csv")
 
 print(archivos_csv)
 
 print("\n")
 print("======================================== ARCHIVOS XLSX ==========================================")
 
-archivos_xlsx = glob.glob("*.xlsx")
+archivos_xlsx = glob.glob("TrabajosJxxx/Trabajos/Victor/*.xlsx")
 
 print(archivos_xlsx)
 
@@ -91,5 +91,6 @@ for i, df in enumerate(lista_informes):
             "Categoria": "categoria", "Vendedor": "vendedor", "Pago": "metodo_pago"
         })
                                     
-df_consolidado = pd.concat(lista_informes, ignore_index=True):
-print(df_consolidado):
+df_consolidado = pd.concat(lista_informes, ignore_index=True)
+print(df_consolidado)
+    
