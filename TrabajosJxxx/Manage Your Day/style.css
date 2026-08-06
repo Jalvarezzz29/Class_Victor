@@ -1,0 +1,21 @@
+/* Animaciones fluidas para transiciones en vistas de celulares */
+.modulo-page {
+    animation: fadeMobileView 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fadeMobileView {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efectos de tap táctil activo */
+button:active {
+    transform: scale(0.97);
+    filter: brightness(0.9);
+}
