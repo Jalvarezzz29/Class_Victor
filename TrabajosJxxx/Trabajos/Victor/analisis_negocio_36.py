@@ -1,5 +1,6 @@
 import pandas as pd
 import glob
+import matplotlib.pyplot as plt
 
 # ============================== LECTURA INDIVIDUAL ==============================
 print("=================================== DATAFRAME MEDELLIN =====================================")
@@ -99,4 +100,118 @@ print(f"\nValores nulos DESPUÉS de rellenar:\n{df_consolidado.isnull().sum()}")
 df_consolidado.to_excel("consolidado_limpio.xlsx", index=False)
 print("\nArchivo guardado correctamente: consolidado_limpio.xlsx")
 
-# ================================ TRECE AGO =====================================
+
+# ============================= ANÁLISIS DE NEGOCIO =============================
+
+# Creamos la columna de venta total (precio * cantidad)
+df_consolidado["venta_total"] = df_consolidado["precio_unitario"] * df_consolidado["cantidad"]
+
+# ============= PREGUNTA 1: ¿Cuánto vendió cada categoría en total? ==============
+
+print("PREGUNTA 1: Ventas por Categoría")
+
+ventas_categoria = df_consolidado.groupby("categoria")["venta_total"].sum().sort_values(ascending=False)
+print(ventas_categoria)
+
+plt.figure(figsize=(8, 5))
+ventas_categoria.plot(kind="bar", title="Ventas por Categoría", color="steelblue")
+plt.ticklabel_format(style="plain", axis="y")
+plt.ylabel("Ventas totales ($)")
+plt.xlabel("Categoría")
+plt.xticks(rotation=0)
+plt.tight_layout()
+plt.savefig("grafico_categoria.png", dpi=150)
+plt.show()
+
+# ======= PREGUNTA 2: ¿Qué porcentaje de las ventas representa cada vendedor? ========
+ 
+print("PREGUNTA 2: Porcentaje de Ventas por Vendedor")
+
+ventas_vendedor = df_consolidado.groupby("vendedor")["venta_total"].sum().sort_values(ascending=False)
+print(ventas_vendedor)
+
+plt.figure(figsize=(8, 6))
+ventas_vendedor.plot(
+    kind="pie",
+    autopct="%1.1f%%",
+    startangle=90,
+    title="Porcentaje de Ventas por Vendedor"
+)
+plt.ylabel("")
+plt.tight_layout()
+plt.savefig("grafico_vendedor.png", dpi=150)
+plt.show()
+
+# =============== PREGUNTA 3: ¿Cuál es el producto que más se vende? ===============
+
+print("PREGUNTA 3: Producto más vendido")
+
+producto_mas_vendido = df_consolidado["producto"].value_counts()
+print(producto_mas_vendido)
+
+print(f"\n→ El producto que MÁS se vende es: {producto_mas_vendido.idxmax()} con {producto_mas_vendido.max()} transacciones")
+
+
+ 
+# ======= PREGUNTA 4: ¿Cómo se distribuyen las ventas según el método de pago? ========
+
+print("PREGUNTA 4: Ventas por Método de Pago")
+
+ventas_metodo = df_consolidado.groupby("metodo_pago")["venta_total"].sum().sort_values(ascending=False)
+print(ventas_metodo)
+
+plt.figure(figsize=(8, 5))
+ventas_metodo.plot(kind="bar", title="Ventas por Método de Pago", color="teal")
+plt.ticklabel_format(style="plain", axis="y")
+plt.ylabel("Ventas totales ($)")
+plt.xlabel("Método de Pago")
+plt.xticks(rotation=0)
+plt.tight_layout()
+plt.savefig("grafico_metodo_pago.png", dpi=150)
+plt.show()
+
+# ===== RETO OPCIONAL - PREGUNTA 5: ¿Cuál es el día de la semana con más ventas? =======
+ 
+print("PREGUNTA 5 (OPCIONAL): Día de la semana con más ventas")
+
+# CORRECCIÓN: las fechas vienen como día/mes/año
+df_consolidado["fecha"] = pd.to_datetime(df_consolidado["fecha"], dayfirst=True, errors="coerce")
+
+df_consolidado["dia_semana"] = df_consolidado["fecha"].dt.day_name()
+
+# Traducir días al español
+mapa_dias = {
+    "Monday": "Lunes",
+    "Tuesday": "Martes",
+    "Wednesday": "Miércoles",
+    "Thursday": "Jueves",
+    "Friday": "Viernes",
+    "Saturday": "Sábado",
+    "Sunday": "Domingo"
+}
+df_consolidado["dia_semana_es"] = df_consolidado["dia_semana"].map(mapa_dias)
+
+orden_dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+ventas_dia = df_consolidado.groupby("dia_semana_es")["venta_total"].sum().reindex(orden_dias)
+print(ventas_dia)
+
+print(f"\n→ El día con MÁS ventas es: {ventas_dia.idxmax()} con ${ventas_dia.max():,.0f}")
+
+plt.figure(figsize=(9, 5))
+ventas_dia.plot(kind="bar", title="Ventas por Día de la Semana", color="coral")
+plt.ticklabel_format(style="plain", axis="y")
+plt.ylabel("Ventas totales ($)")
+plt.xlabel("Día de la Semana")
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig("grafico_dia_semana.png", dpi=150)
+plt.show()
+
+print("ANÁLISIS COMPLETADO")
+
+print("Archivos generados:")
+print("  - consolidado_limpio.xlsx")
+print("  - grafico_categoria.png")
+print("  - grafico_vendedor.png")
+print("  - grafico_metodo_pago.png")
+print("  - grafico_dia_semana.png")
