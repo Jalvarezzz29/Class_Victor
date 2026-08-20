@@ -47,3 +47,11 @@ las categorías analizadas, resumidos en la siguiente tabla:
 
 Estos resultados sirven como base para el análisis complementario desarrollado
 más adelante en la rama `mejoras`.
+
+## Conclusión final
+
+El desarrollo de este ejercicio permitió aplicar un flujo de trabajo ordenado
+con Git, usando commits convencionales para documentar cada etapa del
+proyecto y ramas para incorporar nuevas funcionalidades de forma controlada,
+sin afectar la rama principal hasta que el trabajo estuvo listo para
+fusionarse.
