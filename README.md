@@ -7,3 +7,20 @@ ayudarlo a administrar mejor su tiempo y su dinero.
 
 Este repositorio documenta el desarrollo del proyecto usando **Git**, con un
 flujo de trabajo basado en commits convencionales y ramas.
+
+## Instalación
+
+1. Clona este repositorio:
+
+git clone <url-del-repositorio>
+cd manage-your-day
+
+2. Crea y activa un entorno virtual:
+
+python -m venv venv
+source venv/bin/activate # En Windows: venv\Scripts\activate
+
+3. Instala las dependencias:
+
+pip install pandas openpyxl
+
