@@ -24,3 +24,13 @@ source venv/bin/activate # En Windows: venv\Scripts\activate
 
 pip install pandas openpyxl
 
+
+## Cómo ejecutar el proyecto
+
+1. Asegúrate de tener los archivos de datos necesarios en la carpeta `data/`.
+2. Ejecuta el script principal:
+
+python bot.py
+
+3. El script imprime en consola los resultados del análisis y genera
+   `analisis_extra.xlsx` con el resumen correspondiente.
