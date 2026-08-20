@@ -34,3 +34,16 @@ python bot.py
 
 3. El script imprime en consola los resultados del análisis y genera
    `analisis_extra.xlsx` con el resumen correspondiente.
+
+## Resultados y hallazgos
+
+El análisis de los datos permitió identificar patrones de comportamiento en
+las categorías analizadas, resumidos en la siguiente tabla:
+
+| Categoría   | Total ventas |
+|-------------|--------------|
+| Electrónica | $3,361,610   |
+| Ropa        | $2,687,020   |
+
+Estos resultados sirven como base para el análisis complementario desarrollado
+más adelante en la rama `mejoras`.
